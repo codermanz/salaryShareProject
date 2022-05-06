@@ -1,4 +1,41 @@
 {% extends "layout.html" %}
 {% block content %}
-    <p>About Us page</p>
+<div id="carouselAboutUs" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselAboutUs" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselAboutUs" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselAboutUs" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner" >
+      <div class="carousel-item active" data-bs-interval="10000">
+        <img src="{{ url_for('static', filename='arun.jpeg') }}" style="max-height:500px" class="d-block w-100" alt="Arun">
+        <div class="carousel-caption d-none d-md-block"style="color:white;">
+          <h5>Arun</h5>
+          <p>Senior @ SJSU</p>
+        </div>
+      </div>
+      <div class="carousel-item" data-bs-interval="2000">
+        <img src="{{ url_for('static', filename='raul.jpeg') }}" style="max-height:500px" class="d-block w-100" alt="Raul">
+        <div class="carousel-caption d-none d-md-block"style="color:white;">
+          <h5>Raul</h5>
+          <p >Senior @ SJSU</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="{{ url_for('static', filename='saad.jpeg') }}" style="max-height:500px" class="d-block w-100" alt="Saad">
+        <div class="carousel-caption d-none d-md-block"style="color:white;">
+          <h5>Saad</h5>
+          <p style="color:black;">Junior @ SJSU</p>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselAboutUs" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselAboutUs" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+</div>
 {% endblock content %}

@@ -1,4 +1,221 @@
 {% extends "layout.html" %}
 {% block content %}
-    <p>Search DB</p>
+    <div class="jumbotron bg-light" style="padding: 15px 30px;">
+        <h1 class="display-4" style="text-align: center;">Search For Salary Info!</h1>
+        <hr class="my-4">
+        <p>Simply use the drop downs to see 5 views. Currently, there's only 5 pre-defined views which you can use to query our Database.
+            However, our database design can handle any other query.
+        </p>
+    </div>
+    <div class="container-fluid">
+        <div class="m-4">
+            <div class="accordion" id="accordian">
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseOne">View All Salary Data</button>									
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Entry ID</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Company Country</th>
+                                        <th scope="col">Company State</th>
+                                        <th scope="col">Job Name</th>
+                                        <th scope="col">Employee Country</th>
+                                        <th scope="col">Employee State</th>
+                                        <th scope="col">Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <th scope="row">1</th>
+                                    <td>Apple</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>Software Engineer</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>$500,000</td>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseTwo">Search all Salary Info for specific Job Position</button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <table class="table table-bordered table-striped table-hover">
+                                <label for="queryJob" class="form-label">Search A Specific Job</label>
+                                <input type="text" class="form-control" style="margin-bottom:10px;" id="queryJob" placeholder="Ex. Software Engineer...">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Job Name</th>
+                                        <th scope="col">Job Level</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Company Country</th>
+                                        <th scope="col">Company State</th>
+                                        <th scope="col">Employee Country</th>
+                                        <th scope="col">Employee State</th>
+                                        <th scope="col">Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>Software Engineer</td>
+                                    <td>Junior</td>
+                                    <td>Apple</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>$500,000</td>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseThree">Search all Salary info for specific Company</button>                     
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <label class="form-label">Search all Entries for a Company</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyName" placeholder="Company Name">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyCountry" placeholder="Company Country">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyState" placeholder="Company State">
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Company Country</th>
+                                        <th scope="col">Company State</th>
+                                        <th scope="col">Employee Country</th>
+                                        <th scope="col">Employee State</th>
+                                        <th scope="col">Job Name</th>
+                                        <th scope="col">Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>Apple</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>Software Engineer</td>
+                                    <td>$500,000</td>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFour">Search all Salary info for specific Field</button>                     
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                        <label for="queryField" class="form-label">Search all Entries for a Field</label>
+                        <input type="text" class="form-control" style="margin-bottom:10px;" id="queryField" placeholder="Ex. Technology...">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Field Name</th>
+                                    <th scope="col">Company Name</th>
+                                    <th scope="col">Company Country</th>
+                                    <th scope="col">Company State</th>
+                                    <th scope="col">Job Name</th>
+                                    <th scope="col">Salary</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>Technology</td>
+                                <td>Apple</td>
+                                <td>United States</td>
+                                <td>California</td>
+                                <td>Software Engineer</td>
+                                <td>$500,000</td>                                    
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#collapseFive">Search all Salary info for specific Location</button>                     
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
+                        <div class="card-body">
+                            <div class="row">
+                                <label class="form-label">Search for a specific location</label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryBasedOnCountry" placeholder="Employee Country">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryBasedOnState" placeholder="Employee State">
+                                </div>
+                            </div>
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Employee Country</th>
+                                        <th scope="col">Employee State</th>
+                                        <th scope="col">Job Name</th>
+                                        <th scope="col">Company Name</th>
+                                        <th scope="col">Company Country</th>
+                                        <th scope="col">Company State</th>
+                                        <th scope="col">Salary</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>Software Engineer</td>
+                                    <td>Apple</td>
+                                    <td>United States</td>
+                                    <td>California</td>
+                                    <td>$500,000</td>                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 {% endblock content %}

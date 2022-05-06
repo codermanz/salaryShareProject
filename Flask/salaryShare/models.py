@@ -17,6 +17,9 @@ class Field(db.Model):
     #companies = db.relationship('Company', backref='companyField', lazy=True)
     #jobs = db.relationship('Job', backref='jobfield', lazy=True)
 
+    def __repr__(self):
+        return f"Field('{self.name}')"
+
 class Location(db.Model):
     __tablename__ = 'LOCATION'
 
@@ -26,6 +29,9 @@ class Location(db.Model):
     #Relationships
     #companies = db.relationship('Company', backref='companyLocation', lazy=True)
     # users = db.relationship('User_Input', backref='userLocation', lazy=True)
+
+    def __repr__(self):
+        return f"Location('{self.country}', '{self.state}')"
 
 class Company(db.Model):
     __tablename__ = 'COMPANY'
@@ -43,6 +49,9 @@ class Company(db.Model):
     #Relationships
     # userInputs = db.relationship('User_Input', backref='company', lazy=True)
 
+    def __repr__(self):
+        return f"Company('{self.name}', '{self.country}', '{self.state}', '{self.standing}', '{self.field}')"
+
 class Job(db.Model):
     __tablename__ = 'JOB'
     jobID = db.Column('JOB_ID', db.Integer, primary_key=True)
@@ -58,6 +67,9 @@ class Job(db.Model):
 
     #Relationships
     # userInputs = db.relationship('User_Input', backref='userJob', lazy=True)
+
+    def __repr__(self):
+        return f"Job('{self.name}', '{self.level}', '{self.commitment}', '{self.shiftTime}', '{self.locationType}', , '{self.field}')"
 
 class User_Input(db.Model):
     __tablename__ = 'USER_INPUT'
@@ -93,8 +105,14 @@ class User_Input(db.Model):
     #Relationships
     # userEntries = db.relationship('User_Entry', backref='userInput', lazy=True)
 
+    def __repr__(self):
+        return f"User_Input('{self.inputID}', '{self.yearsAtCompany}', '{self.yearsAtCompany}', '{self.salary}', '{self.negotiated}', '{self.country}', '{self.state}', '{self.companyName}', '{self.companyCountry}', '{self.companyState}', '{self.jobID}')"
+
 class User_Entry(db.Model):
     __tablename__ = 'USER_ENTRY'
     entryID = db.Column('ENTRY_ID', db.Integer, primary_key=True)
     userInputID = db.Column('USER_INPUT_ID', db.Integer, nullable = False)
     # userInputID = db.Column(db.Integer, db.ForeignKey('user__input.inputID'), nullable=False)
+
+    def __repr__(self):
+        return f"User_Entry('{self.entryID}', '{self.userInputID}')"

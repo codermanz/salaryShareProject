@@ -1,4 +1,132 @@
 {% extends "layout.html" %}
 {% block content %}
-    <p>Upload Data to DB</p>
+    <div class="container-fluid">
+        <h1 class="display-4" 
+        style="background:rgb(0,0,0,0.8);padding:10px 0px;text-align:center;color:white;">
+        Upload Company Information
+    </h1>
+    </div>
+    <div class="container-fluid">
+        <form id="uploadCompanyInfo" class="row" method="POST">
+            <div class="col-md-9 form-group" style="margin-top:10px;">
+                <label for="inputCompanyName" class="form-label">Company Name*</label>
+                <input type="text" class="form-control" id="inputCompanyName">
+            </div>
+            <div class="col-md-3 form-group" style="margin-top:10px;">
+                <label for="inputCompanyStanding" class="form-label">Company Standing</label>
+                <select id="inputCompanyStanding" class="form-select">
+                    <option selected> </option>
+                    <option>Coorporate</option>
+                    <option>Public</option>
+                    <option>Private</option>
+                    <option>Non-profit</option>
+                </select>
+            </div>
+            <div class="col-5 form-group" style="margin-top:10px;">
+                <label for="inputCompanyCountry" class="form-label">Company Country*</label>
+                <input type="text" class="form-control" id="inputCompanyCountry">
+            </div>
+            <div class="col-5 form-group" style="margin-top:10px;">
+                <label for="inputCompanyState" class="form-label">Company State*</label>
+                <input type="text" class="form-control" id="inputCompanyState">
+            </div>
+            <div class="col-2 form-group"  style="margin-top:10px;">
+                <label for="inputCity" class="form-label">Field*</label>
+                <input type="text" class="form-control" id="inputCity" placeholder="Ex.Technology...">
+            </div>
+            <div class="col-12 form-group" style="margin-top:10px;">
+                <button type="submit" class="btn btn-primary">Upload Company Info!</button>
+            </div>
+        </form>
+    </div>
+    <div class="container-fluid" style="padding-top: 40px;">
+        <h1 class="display-4" 
+        style="background:rgb(0,0,0,0.8);padding:10px 0px;text-align:center;color:white;">
+        Report Your Salary!
+    </h1>
+    </div>
+    <div class="container-fluid">
+        <form id="uploadCompanyInfo" class="row g-3" method="POST">
+            <div class="col-md-9">
+                <label for="inputCompanyName" class="form-label">Job Position*</label>
+                <input type="text" class="form-control" id="inputCompanyName" placeholder="Ex. Software Engineer...">
+            </div>
+            <div class="col-md-3">
+                <label for="inputJobLevel" class="form-label">Job Level</label>
+                <input type="text" class="form-control" id="inputJobLevel" placeholder="Ex. Senior/Junior/Staff...">
+            </div>
+            <div class="col-4">
+                <label for="jobField" class="form-label">Job Field*</label>
+                <input type="text" class="form-control" id="jobField" placeholder="Ex. Technology...">
+            </div>
+            <div class="col-2">
+                <label for="userSalary" class="form-label">Salary*</label>
+                <input type="text" class="form-control" id="userSalary">
+            </div>
+            <div class="col-2">
+                <label for="jobCommitment" class="form-label">Job Commitment</label>
+                <select id="jobCommitment" class="form-select">
+                    <option selected></option>
+                    <option>Part-time</option>
+                    <option>Full-time</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="inputNegotiated" class="form-label">Negotiated for Salary?</label>
+                <select id="inputNegotiated" class="form-select">
+                    <option selected></option>
+                    <option>No</option>
+                    <option>Yes</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="shiftTime" class="form-label">Shift Time</label>
+                <select id="shiftTime" class="form-select">
+                    <option selected></option>
+                    <option>Night</option>
+                    <option>Day</option>
+                </select>
+            </div>
+            <div class="col-3">
+                <label for="inputUserCountry" class="form-label">What Country do you work in?*</label>
+                <input type="text" class="form-control" id="inputUserCountry">
+            </div>
+            <div class="col-3">
+                <label for="inputUserState" class="form-label">What State do you work in?*</label>
+                <input type="text" class="form-control" id="inputUserState">
+            </div>
+            <div class="col-2">
+                <label for="inputLocationType" class="form-label">Location Type</label>
+                <select id="inputLocationType" class="form-select">
+                    <option selected></option>
+                    <option>In-person</option>
+                    <option>Remote</option>
+                    <option>Hybrid</option>
+                </select>
+            </div>
+            <div class="col-2">
+                <label for="yearsWorking" class="form-label">Years Working*</label>
+                <input type="text" class="form-control" id="yearsWorking">
+            </div>
+            <div class="col-2">
+                <label for="yearsAtCompany" class="form-label">Years At Company*</label>
+                <input type="text" class="form-control" id="yearsAtCompany">
+            </div>
+            <div class="col-6">
+                <label for="userCompanyName" class="form-label">Employer Name*</label>
+                <input type="text" class="form-control" id="userCompanyName" placeholder="Ex. Apple...">
+            </div>
+            <div class="col-3">
+                <label for="userCompanyCountry" class="form-label">Employer's HQ Country*</label>
+                <input type="text" class="form-control" id="userCompanyCountry" placeholder="Ex. United States...">
+            </div>
+            <div class="col-3">
+                <label for="userCompanyState" class="form-label">Emplyer's HQ State*</label>
+                <input type="text" class="form-control" id="userCompanyState" placeholder="Ex. California...">
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Report your Info!</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
