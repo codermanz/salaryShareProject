@@ -44,7 +44,7 @@ class Company(db.Model):
     # __table_args__ = (ForeignKeyConstraint([country, state], 
     #                                         [Location.country, Location.state]), 
     #                                         {})
-    field = db.Column('COMPANY_FIELD', db.String(50), db.ForeignKey('field.name'), nullable=False)
+    field = db.Column('COMPANY_FIELD', db.String(50), db.ForeignKey('FIELD.NAME'), nullable=False)
 
     #Relationships
     # userInputs = db.relationship('User_Input', backref='company', lazy=True)
@@ -63,7 +63,7 @@ class Job(db.Model):
     locationType = db.Column('JOB_LOCATION_TYPE', db.String(50), nullable=True)
 
     #Foreign Keys
-    field = db.Column('JOB_FIELD', db.String(50), db.ForeignKey('field.name'), nullable=False)
+    field = db.Column('JOB_FIELD', db.String(50), db.ForeignKey('FIELD.NAME'), nullable=False)
 
     #Relationships
     # userInputs = db.relationship('User_Input', backref='userJob', lazy=True)
@@ -94,7 +94,7 @@ class User_Input(db.Model):
     #                                         [Company.country, Company.state, Company.name]),
     #                                         {})
         #Job
-    jobID = db.Column('USER_JOB_ID', db.Integer, db.ForeignKey('job.jobID'), nullable=False)
+    jobID = db.Column('USER_JOB_ID', db.Integer, db.ForeignKey('JOB.jobID'), nullable=False)
 
     #Unique constraint on columns (see logical design)
     # __table_args__ = (UniqueConstraint(yearsWorking, yearsAtCompany, salary, negotiated,

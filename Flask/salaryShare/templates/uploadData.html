@@ -7,38 +7,92 @@
     </h1>
     </div>
     <div class="container-fluid">
-        <form id="uploadCompanyInfo" class="row" method="POST">
+        <form method="POST" action="" id="uploadCompanyInfo" class="row g-3" >
+            {{ companyForm.hidden_tag() }}
+            {% if companyForm.errors %}
+            <div class="invalid-feedback">
+                {% for error in companyForm.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <!-- {{ companyForm.hidden_tag() }} -->
             <div class="col-md-9 form-group" style="margin-top:10px;">
-                <label for="inputCompanyName" class="form-label">Company Name*</label>
-                <input type="text" class="form-control" id="inputCompanyName">
+                {{ companyForm.name.label(class="form-label") }}
+
+                {% if companyForm.name.errors %}
+                    {{ companyForm.name(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in companyForm.name.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ companyForm.name(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-md-3 form-group" style="margin-top:10px;">
-                <label for="inputCompanyStanding" class="form-label">Company Standing</label>
-                <select id="inputCompanyStanding" class="form-select">
-                    <option selected> </option>
-                    <option>Coorporate</option>
-                    <option>Public</option>
-                    <option>Private</option>
-                    <option>Non-profit</option>
-                </select>
+
+                {{ companyForm.standing.label(class="form-label") }}
+
+                {% if companyForm.standing.errors %}
+                    {{ companyForm.standing(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in companyForm.standing.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ companyForm.standing(class="form-select") }}
+                {% endif %}
             </div>
             <div class="col-5 form-group" style="margin-top:10px;">
-                <label for="inputCompanyCountry" class="form-label">Company Country*</label>
-                <input type="text" class="form-control" id="inputCompanyCountry">
+                {{ companyForm.country.label(class="form-label") }}
+
+                {% if companyForm.country.errors %}
+                    {{ companyForm.country(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in companyForm.country.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ companyForm.country(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-5 form-group" style="margin-top:10px;">
-                <label for="inputCompanyState" class="form-label">Company State*</label>
-                <input type="text" class="form-control" id="inputCompanyState">
+                {{ companyForm.state.label(class="form-label") }}
+
+                {% if companyForm.state.errors %}
+                    {{ companyForm.state(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in companyForm.state.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ companyForm.state(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-2 form-group"  style="margin-top:10px;">
-                <label for="inputCity" class="form-label">Field*</label>
-                <input type="text" class="form-control" id="inputCity" placeholder="Ex.Technology...">
+                {{ companyForm.field.label(class="form-label") }}
+
+                {% if companyForm.field.errors %}
+                    {{ companyForm.field(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in companyForm.field.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ companyForm.field(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-12 form-group" style="margin-top:10px;">
-                <button type="submit" class="btn btn-primary">Upload Company Info!</button>
-            </div>
+                {{ companyForm.submit(class="btn btn-primary") }}
         </form>
     </div>
+
     <div class="container-fluid" style="padding-top: 40px;">
         <h1 class="display-4" 
         style="background:rgb(0,0,0,0.8);padding:10px 0px;text-align:center;color:white;">
@@ -46,86 +100,228 @@
     </h1>
     </div>
     <div class="container-fluid">
-        <form id="uploadCompanyInfo" class="row g-3" method="POST">
+        <form method="POST" action="" id="uploadCompanyInfo" class="row g-3" >
+            {{ userForm.hidden_tag() }}
+            {% if userForm.errors %}
+            <div class="invalid-feedback">
+                {% for error in userForm.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
             <div class="col-md-9">
-                <label for="inputCompanyName" class="form-label">Job Position*</label>
-                <input type="text" class="form-control" id="inputCompanyName" placeholder="Ex. Software Engineer...">
+                {{ userForm.jobPosition.label(class="form-label") }}
+
+                {% if userForm.jobPosition.errors %}
+                    {{ userForm.jobPosition(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.jobPosition.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.jobPosition(class="form-control", placeholder="Ex. Software Engineer...") }}
+                {% endif %}
             </div>
             <div class="col-md-3">
-                <label for="inputJobLevel" class="form-label">Job Level</label>
-                <input type="text" class="form-control" id="inputJobLevel" placeholder="Ex. Senior/Junior/Staff...">
+                {{ userForm.jobLevel.label(class="form-label") }}
+
+                {% if userForm.jobLevel.errors %}
+                    {{ userForm.jobLevel(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.jobLevel.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.jobLevel(class="form-control", placeholder="Ex. Senior/Junior/Staff...") }}
+                {% endif %}
             </div>
             <div class="col-4">
-                <label for="jobField" class="form-label">Job Field*</label>
-                <input type="text" class="form-control" id="jobField" placeholder="Ex. Technology...">
+                {{ userForm.jobField.label(class="form-label") }}
+
+                {% if userForm.jobField.errors %}
+                    {{ userForm.jobField(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.jobField.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.jobField(class="form-control", placeholder="Ex. Technology...") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="userSalary" class="form-label">Salary*</label>
-                <input type="text" class="form-control" id="userSalary">
+                {{ userForm.salary.label(class="form-label") }}
+
+                {% if userForm.salary.errors %}
+                    {{ userForm.salary(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.salary.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.salary(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="jobCommitment" class="form-label">Job Commitment</label>
-                <select id="jobCommitment" class="form-select">
-                    <option selected></option>
-                    <option>Part-time</option>
-                    <option>Full-time</option>
-                </select>
+                {{ userForm.jobCommitment.label(class="form-label") }}
+
+                {% if userForm.jobCommitment.errors %}
+                    {{ userForm.jobCommitment(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.jobCommitment.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.jobCommitment(class="form-select") }}
+                {% endif %}
+
             </div>
             <div class="col-2">
-                <label for="inputNegotiated" class="form-label">Negotiated for Salary?</label>
-                <select id="inputNegotiated" class="form-select">
-                    <option selected></option>
-                    <option>No</option>
-                    <option>Yes</option>
-                </select>
+                {{ userForm.negotiated.label(class="form-label") }}
+
+                {% if userForm.negotiated.errors %}
+                    {{ userForm.negotiated(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.negotiated.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.negotiated(class="form-select") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="shiftTime" class="form-label">Shift Time</label>
-                <select id="shiftTime" class="form-select">
-                    <option selected></option>
-                    <option>Night</option>
-                    <option>Day</option>
-                </select>
+                {{ userForm.shiftTime.label(class="form-label") }}
+
+                {% if userForm.shiftTime.errors %}
+                    {{ userForm.shiftTime(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.shiftTime.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.shiftTime(class="form-select") }}
+                {% endif %}
             </div>
             <div class="col-3">
-                <label for="inputUserCountry" class="form-label">What Country do you work in?*</label>
-                <input type="text" class="form-control" id="inputUserCountry">
+                {{ userForm.inputCountry.label(class="form-label") }}
+
+                {% if userForm.inputCountry.errors %}
+                    {{ userForm.inputCountry(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.inputCountry.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.inputCountry(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-3">
-                <label for="inputUserState" class="form-label">What State do you work in?*</label>
-                <input type="text" class="form-control" id="inputUserState">
+                {{ userForm.inputState.label(class="form-label") }}
+
+                {% if userForm.inputState.errors %}
+                    {{ userForm.inputState(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.inputState.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.inputState(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="inputLocationType" class="form-label">Location Type</label>
-                <select id="inputLocationType" class="form-select">
-                    <option selected></option>
-                    <option>In-person</option>
-                    <option>Remote</option>
-                    <option>Hybrid</option>
-                </select>
+                {{ userForm.locationType.label(class="form-label") }}
+
+                {% if userForm.locationType.errors %}
+                    {{ userForm.locationType(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.locationType.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.locationType(class="form-select") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="yearsWorking" class="form-label">Years Working*</label>
-                <input type="text" class="form-control" id="yearsWorking">
+                {{ userForm.yearsWorking.label(class="form-label") }}
+
+                {% if userForm.yearsWorking.errors %}
+                    {{ userForm.yearsWorking(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.yearsWorking.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.yearsWorking(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-2">
-                <label for="yearsAtCompany" class="form-label">Years At Company*</label>
-                <input type="text" class="form-control" id="yearsAtCompany">
+                {{ userForm.yearsAtCompany.label(class="form-label") }}
+
+                {% if userForm.yearsAtCompany.errors %}
+                    {{ userForm.yearsAtCompany(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.yearsAtCompany.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.yearsAtCompany(class="form-control") }}
+                {% endif %}
             </div>
             <div class="col-6">
-                <label for="userCompanyName" class="form-label">Employer Name*</label>
-                <input type="text" class="form-control" id="userCompanyName" placeholder="Ex. Apple...">
+                {{ userForm.companyName.label(class="form-label") }}
+
+                {% if userForm.companyName.errors %}
+                    {{ userForm.companyName(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.companyName.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.companyName(class="form-control", placeholder="Ex. Apple...") }}
+                {% endif %}
             </div>
             <div class="col-3">
-                <label for="userCompanyCountry" class="form-label">Employer's HQ Country*</label>
-                <input type="text" class="form-control" id="userCompanyCountry" placeholder="Ex. United States...">
+                {{ userForm.companyCountry.label(class="form-label") }}
+
+                {% if userForm.companyCountry.errors %}
+                    {{ userForm.companyCountry(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.companyCountry.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.companyCountry(class="form-control", placeholder="Ex. United States...") }}
+                {% endif %}
             </div>
             <div class="col-3">
-                <label for="userCompanyState" class="form-label">Emplyer's HQ State*</label>
-                <input type="text" class="form-control" id="userCompanyState" placeholder="Ex. California...">
+                {{ userForm.companyState.label(class="form-label") }}
+
+                {% if userForm.companyState.errors %}
+                    {{ userForm.companyState(class="form-control form-control-lg is-invalid")}}
+                    <div class="invalid-feedback">
+                        {% for error in userForm.companyState.errors %}
+                        <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ userForm.companyState(class="form-control", placeholder="Ex. California...") }}
+                {% endif %}
             </div>
             <div class="col-12">
-                <button type="submit" class="btn btn-primary">Report your Info!</button>
+                {{ userForm.submit(class="btn btn-primary") }}
             </div>
         </form>
     </div>

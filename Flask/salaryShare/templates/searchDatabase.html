@@ -54,9 +54,33 @@
                     </h2>
                     <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
                         <div class="card-body">
-                            <table class="table table-bordered table-striped table-hover">
+                            <form method="POST" action="" class="row">
+                                {{ jobQueryForm.hidden_tag() }}
+                                {% if jobQueryForm.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in jobQueryForm.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                                 <label for="queryJob" class="form-label">Search A Specific Job</label>
-                                <input type="text" class="form-control" style="margin-bottom:10px;" id="queryJob" placeholder="Ex. Software Engineer...">
+                                <div class="col-11 form-group">
+                                    {% if jobQueryForm.jobName.errors %}
+                                        {{ jobQueryForm.jobName(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in jobQueryForm.jobName.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ jobQueryForm.jobName(class="form-control", placeholder="Ex. Software Engineer...", style="margin-bottom:10px;") }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-1 form-group">
+                                    {{ jobQueryForm.submit(class="btn btn-primary") }}
+                                </div>
+                            </form>
+                            <table class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
                                         <th scope="col">Job Name</th>
@@ -94,18 +118,56 @@
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
                         <div class="card-body">
-                            <div class="row">
+                            <form method="POST" action="" class="row">
+                                {{ companyQueryForm.hidden_tag() }}
+                                {% if companyQueryForm.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in companyQueryForm.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                                 <label class="form-label">Search all Entries for a Company</label>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyName" placeholder="Company Name">
+                                <div class="col-md-5 form-group">
+                                    {% if companyQueryForm.name.errors %}
+                                        {{ companyQueryForm.name(class="form-control form-control-lg is-invalid")}}
+                                         <div class="invalid-feedback">
+                                            {% for error in companyQueryForm.name.errors %}
+                                            <span>{{ error }}</span>
+                                                {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ companyQueryForm.name(class="form-control", placeholder="Company Name", style="margin-bottom:10px;") }}
+                                    {% endif %}
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyCountry" placeholder="Company Country">
+                                <div class="col-md-3 form-group">
+                                    {% if companyQueryForm.country.errors %}
+                                        {{ companyQueryForm.country(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in companyQueryForm.country.errors %}
+                                            <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ companyQueryForm.country(class="form-control", placeholder="Company Country", style="margin-bottom:10px;") }}
+                                    {% endif %}
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryCompanyState" placeholder="Company State">
+                                <div class="col-md-3 form-group">
+                                    {% if companyQueryForm.state.errors %}
+                                        {{ companyQueryForm.state(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in companyQueryForm.state.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ companyQueryForm.state(class="form-control", placeholder="Company State", style="margin-bottom:10px;") }}
+                                    {% endif %}
                                 </div>
-                            </div>
+                                <div class="col-1">
+                                    {{ companyQueryForm.submit(class="btn btn-primary", style="margin-bottom:10px;") }}
+                                </div>
+                            </form>
                             <table class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
@@ -143,8 +205,32 @@
                     </h2>
                     <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
                         <div class="card-body">
-                        <label for="queryField" class="form-label">Search all Entries for a Field</label>
-                        <input type="text" class="form-control" style="margin-bottom:10px;" id="queryField" placeholder="Ex. Technology...">
+                        <form method="POST" action="" class="row">
+                            {{ fieldQueryForm.hidden_tag() }}
+                            {% if fieldQueryForm.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in fieldQueryForm.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            <label for="queryField" class="form-label">Search all Entries for a Field</label>
+                            <div class="col-11 form-group">
+                                {% if fieldQueryForm.fieldName.errors %}
+                                    {{ fieldQueryForm.fieldName(class="form-control form-control-lg is-invalid")}}
+                                    <div class="invalid-feedback">
+                                        {% for error in fieldQueryForm.fieldName.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ fieldQueryForm.fieldName(class="form-control", placeholder="Ex. Technology...", style="margin-bottom:10px;") }}
+                                {% endif %}
+                            </div>
+                            <div class="col-1 form-group">
+                                {{ fieldQueryForm.submit(class="btn btn-primary") }}
+                            </div>
+                        </form>
                         <table class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
@@ -179,15 +265,45 @@
                     </h2>
                     <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#myAccordion">
                         <div class="card-body">
-                            <div class="row">
+                            <form method="POST" action="" class="row">
+                                {{ locationQueryForm.hidden_tag() }}
+                                {% if locationQueryForm.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in locationQueryForm.errors %}
+                                    <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                                 <label class="form-label">Search for a specific location</label>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryBasedOnCountry" placeholder="Employee Country">
+
+                                    {% if locationQueryForm.country.errors %}
+                                        {{ locationQueryForm.country(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in locationQueryForm.country.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ locationQueryForm.country(class="form-control", placeholder="Ex. Employee Country...", style="margin-bottom:10px;") }}
+                                    {% endif %}
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" class="form-control" style="margin-bottom:10px;" id="queryBasedOnState" placeholder="Employee State">
+                                    {% if locationQueryForm.state.errors %}
+                                        {{ locationQueryForm.state(class="form-control form-control-lg is-invalid")}}
+                                        <div class="invalid-feedback">
+                                            {% for error in locationQueryForm.state.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ locationQueryForm.state(class="form-control", placeholder="Ex. Employee State...", style="margin-bottom:10px;") }}
+                                    {% endif %}
                                 </div>
-                            </div>
+                                <div class="col-1 form-group">
+                                    {{ locationQueryForm.submit(class="btn btn-primary") }}
+                                </div>
+                            </form>
                             <table class="table table-bordered table-striped table-hover">
                                 <thead>
                                     <tr>
