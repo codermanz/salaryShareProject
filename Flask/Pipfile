@@ -12,6 +12,7 @@ flask-mysql = "*"
 flask-sqlalchemy = "*"
 pymysql = "*"
 cryptography = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"
