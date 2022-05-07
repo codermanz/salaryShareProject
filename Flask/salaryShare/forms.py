@@ -56,19 +56,19 @@ class ReportUserInformationForm(FlaskForm):
 
 class SearchUsingJob(FlaskForm):
     jobName = StringField('Search all Entries for a Job', validators=[DataRequired(), Length(max=50)])
-    submit = SubmitField('Search')
+    submit1 = SubmitField('Search')
 
 class SearchUsingCompany(FlaskForm):
     name = StringField('Company Name', validators=[DataRequired(), Length(max=60)])
-    country = StringField('Company Country', validators=[DataRequired(), Length(max=50)])
-    state = StringField('Company State', validators=[DataRequired(), Length(max=50)])
-    submit = SubmitField('Search')
+    companyCountry = StringField('Company Country', validators=[DataRequired(), Length(max=50)])
+    companyState = StringField('Company State', validators=[DataRequired(), Length(max=50)])
+    submit2 = SubmitField('Search')
 
 class SearchUsingField(FlaskForm):
     fieldName = StringField('Search all Entries for a Field', validators=[DataRequired(), Length(max=50)])
-    submit = SubmitField('Search')
+    submit3 = SubmitField('Search')
 
 class SearchUsingLocation(FlaskForm):
     country = StringField('Search all entries for Country', validators=[DataRequired(), Length(max=50)])
     state = StringField('Search all entries for State', validators=[DataRequired(), Length(max=50)])
-    submit = SubmitField('Search')
+    submit4 = SubmitField('Search')

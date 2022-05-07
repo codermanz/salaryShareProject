@@ -133,13 +133,14 @@ def searchDatabase():
     locationBasedQuery = []
     # General query for general view
     generalQuery = db.session.query(User_Entry.entryID, 
-                                    Company.name.label("companyName"),
-                                    Company.country.label("companyCountry"), 
-                                    Company.state.label("companyState"), 
+                                    User_Input.companyName.label("companyName"),
+                                    User_Input.companyCountry.label("companyCountry"), 
+                                    User_Input.companyState.label("companyState"), 
                                     Job.name.label("jobName"), 
                                     User_Input.country.label("userCountry"), 
                                     User_Input.state.label("userState"), 
                                     User_Input.salary).\
+                            select_from(User_Entry).\
                             join(User_Input, User_Entry.userInputID == User_Input.inputID).\
                             join(Company, User_Input.companyName == Company.name and \
                                 User_Input.companyCountry == Company.country and \
@@ -151,17 +152,45 @@ def searchDatabase():
     fieldFilterForm = SearchUsingField()
     locationFilterForm = SearchUsingLocation()
     # All form validation
-    if companyFilterForm.validate_on_submit():
+    if jobFilterForm.submit1.data and jobFilterForm.validate_on_submit():
+        jobQuery = Job.query.filter_by(name=jobFilterForm.jobName.data).first()
+        if (not jobQuery):
+            flash(f'Unfortunetly, no entries for that job exist', 'danger')
+            return redirect(url_for('searchDatabase'))
+        flash(f'Job entries with your requirements displayed. Please use drop down to view the entries!', 'success')
+        jobBasedQuery = db.session.query(User_Entry.entryID,
+                                    Job.name.label("jobName"),
+                                    Job.level.label("jobLevel"),
+                                    User_Input.companyName.label("companyName"),
+                                    User_Input.companyCountry.label("companyCountry"), 
+                                    User_Input.companyState.label("companyState"), 
+                                    User_Input.country.label("userCountry"), 
+                                    User_Input.state.label("userState"), 
+                                    User_Input.salary).\
+                            select_from(User_Entry).\
+                            join(User_Input, User_Entry.userInputID == User_Input.inputID).\
+                            join(Company, User_Input.companyName == Company.name and \
+                                User_Input.companyCountry == Company.country and \
+                                User_Input.companyState == Company.state).\
+                            join(Job, User_Input.jobID == Job.jobID).where(Job.name == jobFilterForm.jobName.data).distinct(User_Entry.entryID).order_by(Job.name).all()
+        return render_template('searchDatabase.html', jobQueryForm=jobFilterForm,
+                            companyQueryForm=companyFilterForm, fieldQueryForm=fieldFilterForm,
+                            locationQueryForm=locationFilterForm, title='Search Database', generalQuery=generalQuery,
+                            jobBasedQuery=jobBasedQuery, companyBasedQuery=companyBasedQuery, fieldBasedQuery=fieldBasedQuery
+                            , locationBasedQuery=locationBasedQuery)
+        
+
+    if companyFilterForm.submit2.data and companyFilterForm.validate_on_submit():
         companyQuery = Company.query.filter_by(name=companyFilterForm.name.data,
-                                        country=companyFilterForm.country.data,
-                                        state=companyFilterForm.state.data).first()
+                                        country=companyFilterForm.companyCountry.data,
+                                        state=companyFilterForm.companyState.data).first()
         if (not companyQuery):
             flash(f'Unfortunetly, no entries for that company exist', 'danger')
             return redirect(url_for('searchDatabase'))
-        db.session.query(
-                                    Company.name.label("companyName"),
-                                    Company.country.label("companyCountry"), 
-                                    Company.state.label("companyState"), 
+        companyBasedQuery = db.session.query(User_Entry.entryID, 
+                                    User_Input.companyName.label("companyName"),
+                                    User_Input.companyCountry.label("companyCountry"), 
+                                    User_Input.companyState.label("companyState"),  
                                     User_Input.country.label("userCountry"), 
                                     User_Input.state.label("userState"), 
                                     Job.name.label("jobName"),
@@ -171,7 +200,9 @@ def searchDatabase():
                             join(Company, User_Input.companyName == Company.name and \
                                 User_Input.companyCountry == Company.country and \
                                 User_Input.companyState == Company.state).\
-                            join(Job, User_Input.jobID == Job.jobID).filter(Company.name=='Apple', Company.country=='United States', Company.state=='California').order_by(Company.name).all()
+                            join(Job, User_Input.jobID == Job.jobID).where(Company.name==companyFilterForm.name.data,\
+                                Company.country==companyFilterForm.companyCountry.data,\
+                                Company.state==companyFilterForm.companyState.data).distinct(User_Entry.entryID).order_by(User_Input.companyName).all()
         flash(f'Company entries with your requirements displayed. Please use drop down to view the entries!', 'success')
         return render_template('searchDatabase.html', jobQueryForm=jobFilterForm,
                             companyQueryForm=companyFilterForm, fieldQueryForm=fieldFilterForm,
@@ -179,41 +210,16 @@ def searchDatabase():
                             jobBasedQuery=jobBasedQuery, companyBasedQuery=companyBasedQuery, fieldBasedQuery=fieldBasedQuery
                             , locationBasedQuery=locationBasedQuery)
     
-    if jobFilterForm.validate_on_submit():
-        jobQuery = Job.query.filter_by(name=jobFilterForm.jobName.data).first()
-        if (not jobQuery):
-            flash(f'Unfortunetly, no entries for that job exist', 'danger')
-            return redirect(url_for('searchDatabase'))
-        flash(f'Job entries with your requirements displayed. Please use drop down to view the entries!', 'success')
-        jobBasedQuery = db.session.query(Job.name.label("jobName"),
-                                    Job.level.label("jobLevel"),
-                                    Company.name.label("companyName"),
-                                    Company.country.label("companyCountry"), 
-                                    Company.state.label("companyState"), 
-                                    User_Input.country.label("userCountry"), 
-                                    User_Input.state.label("userState"), 
-                                    User_Input.salary).\
-                            join(User_Input, User_Entry.userInputID == User_Input.inputID).\
-                            join(Company, User_Input.companyName == Company.name and \
-                                User_Input.companyCountry == Company.country and \
-                                User_Input.companyState == Company.state).\
-                            join(Job, User_Input.jobID == Job.jobID).filter(Job.name == jobFilterForm.jobName.data).order_by(Job.name).all()
-        return render_template('searchDatabase.html', jobQueryForm=jobFilterForm,
-                            companyQueryForm=companyFilterForm, fieldQueryForm=fieldFilterForm,
-                            locationQueryForm=locationFilterForm, title='Search Database', generalQuery=generalQuery,
-                            jobBasedQuery=jobBasedQuery, companyBasedQuery=companyBasedQuery, fieldBasedQuery=fieldBasedQuery
-                            , locationBasedQuery=locationBasedQuery)
-    
-    if fieldFilterForm.validate_on_submit():
+    if fieldFilterForm.submit3.data and fieldFilterForm.validate_on_submit():
         fieldQuery = Field.query.filter_by(name=fieldFilterForm.fieldName.data).first()
         if (not fieldQuery):
             flash(f'Unfortunetly, no entries for that field exist', 'danger')
             return redirect(url_for('searchDatabase'))
-        fieldBasedQuery = db.session.query(
-                                    Field.name.label("fieldName"),
-                                    Company.name.label("companyName"),
-                                    Company.country.label("companyCountry"), 
-                                    Company.state.label("companyState"), 
+        fieldBasedQuery = db.session.query(User_Entry.entryID, 
+                                    Job.field.label("fieldName"),
+                                    User_Input.companyName.label("companyName"),
+                                    User_Input.companyCountry.label("companyCountry"), 
+                                    User_Input.companyState.label("companyState"),  
                                     Job.name.label("jobName"),
                                     User_Input.salary).\
                             select_from(User_Entry).\
@@ -223,7 +229,7 @@ def searchDatabase():
                                 User_Input.companyState == Company.state).\
                             join(Job, User_Input.jobID == Job.jobID).\
                             join(Field, Field.name == Job.field).\
-                            filter(Field.name==fieldFilterForm.fieldName.data).order_by(Job.name).all()
+                            filter(Field.name==fieldFilterForm.fieldName.data).distinct(User_Entry.entryID).order_by(Job.name).all()
         flash(f'Job entries in your selected field are displayed. Please use drop down to view the entries!', 'success')
         return render_template('searchDatabase.html', jobQueryForm=jobFilterForm,
                             companyQueryForm=companyFilterForm, fieldQueryForm=fieldFilterForm,
@@ -231,16 +237,16 @@ def searchDatabase():
                             jobBasedQuery=jobBasedQuery, companyBasedQuery=companyBasedQuery, fieldBasedQuery=fieldBasedQuery
                             , locationBasedQuery=locationBasedQuery)
     
-    if locationFilterForm.validate_on_submit():
+    if locationFilterForm.submit4.data and locationFilterForm.validate_on_submit():
         locationQuery = Company.query.filter_by(country=locationFilterForm.country.data,
                                         state=locationFilterForm.state.data).first()
         if (not locationQuery):
             flash(f'Unfortunetly, no entries for that location exist', 'danger')
             return redirect(url_for('searchDatabase'))
-        locationBasedQuery = db.session.query(
-                                    Company.name.label("companyName"),
-                                    Company.country.label("companyCountry"), 
-                                    Company.state.label("companyState"), 
+        locationBasedQuery = db.session.query(User_Entry.entryID, 
+                                    User_Input.companyName.label("companyName"),
+                                    User_Input.companyCountry.label("companyCountry"), 
+                                    User_Input.companyState.label("companyState"), 
                                     User_Input.country.label("userCountry"), 
                                     User_Input.state.label("userState"), 
                                     Job.name.label("jobName"),
@@ -252,7 +258,8 @@ def searchDatabase():
                                 User_Input.companyState == Company.state).\
                             join(Job, User_Input.jobID == Job.jobID).\
                             join(Location, User_Input.country==Location.country and User_Input.state==Location.state).\
-                            filter(User_Input.country==locationFilterForm.country.data, User_Input.state==locationFilterForm.state.data).order_by(Job.name).all()
+                            filter(User_Input.country==locationFilterForm.country.data, \
+                                User_Input.state==locationFilterForm.state.data).distinct(User_Entry.entryID).order_by(Job.name).all()
         flash(f'Job entries at your selected location are displayed. Please use drop down to view the entries!', 'success')
         return render_template('searchDatabase.html', jobQueryForm=jobFilterForm,
                             companyQueryForm=companyFilterForm, fieldQueryForm=fieldFilterForm,

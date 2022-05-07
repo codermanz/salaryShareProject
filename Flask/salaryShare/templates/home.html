@@ -1,8 +1,101 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="jumbotron bg-light" style="padding: 15px 30px;">
+<div class="jumbotron bg-light container-fluid" style="padding: 15px 30px; margin-bottom: 10px;">
     <h1 class="display-4" style="text-align: center;">Welcome to Salary Share</h1>
     <hr class="my-4">
-    <p>Facilitating job compensation transparency one job seeker at a time!</p>
+    <div class="text-center" style="margin:10px">
+        <img src="{{ url_for('static', filename='logo.jpeg') }}" style="margin:10px" alt="Logo">
+        <p>Facilitating job compensation transparency one job seeker at a time!</p>
+        <hr class="my-4">
+    </div>
 </div>
+<div class="accordion" id="homeAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          About this Project
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#homeAccordion">
+        <div class="accordion-body row">
+            <div class="card border-dark mb-3" style="max-width: 18rem;margin:10px">
+                <div class="card-header"><h5 class="card-title" style="margin-top:4px">Introduction</h5></div>
+                <div class="card-body text-dark">
+                  <p class="card-text">The purpose of this project is to go through the design process for designing a database, then implementing it by creating the database then integrating it with a full stack application.</p>
+                </div>
+            </div>
+            <div class="card border-dark mb-3" style="max-width: 18rem;margin:10px">
+                <div class="card-header"><h5 class="card-title" style="margin-top:4px">Problem Statement</h5></div>
+                <div class="card-body text-dark">
+                  <p class="card-text">In several industrys there's a lack of compensation transparency which leads to a salary gap between employees who do the same job but get compensated a different value.</p>
+                </div>
+            </div>
+            <div class="card border-dark mb-3" style="max-width: 18rem;margin:10px">
+                <div class="card-header"><h5 class="card-title" style="margin-top:4px">Prupose/Motivation</h5></div>
+                <div class="card-body text-dark">
+                  <p class="card-text">Entering the industry, many college students don't know what salary they should be demanding. Having access to anonymous salaries from others in the industry can provide leverage and aid salary negotiations.</p>
+                </div>
+            </div>
+            <div class="card border-dark mb-3" style="max-width: 18rem;margin:10px">
+                <div class="card-header"><h5 class="card-title" style="margin-top:4px">Implementation</h5></div>
+                <div class="card-body text-dark">
+                  <p class="card-text">Users are able to report their salaries using our upload data page. Job seekers or negotiators are then able to query these entries using the search database to get a sense of average market value. Please review design process for details of implementation.</p>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          The Design Process
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#homeAccordion">
+        <div class="accordion-body">
+            <div class="text-center" style="margin:10px">
+                <h3>Initial Tables</h3>
+                <img src="{{ url_for('static', filename='initialTables.png') }}" alt="initTables">
+                <hr class="my-4">
+            </div>
+            <div class="text-center" style="margin:10px">
+                <h3>First Normal Form</h3>
+                <img src="{{ url_for('static', filename='1NF.png') }}" alt="1Nf">
+                <hr class="my-4">
+            </div>
+            <div class="text-center" style="margin:10px">
+                <h3>Second Normal Form</h3>
+                <img src="{{ url_for('static', filename='2NF.png') }}" alt="2Nf">
+                <hr class="my-4">
+            </div>
+            <div class="text-center" style="margin:10px">
+                <h3>Third Normal Form</h3>
+                <img src="{{ url_for('static', filename='3NF.png') }}" alt="3Nf">
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          Implementation and Testing
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#homeAccordion">
+        <div class="accordion-body">
+            <h4>Tech stack:<br></h4>
+            <p>
+              1. Flask <br>
+                a) SQLAlchemy for ORM <br>
+              2. MySQL<br>
+              3. Git<br>
+              4. Bootstrap<br>
+              5. Heroku<br>
+            </p>
+            <h4>Testing<br></h4>
+            <p>Database was first tested with 200+ entries. Various queries and relationships tested. Then testing with the same 200+ entries was done with full integration. Please view project report for detailed testing details.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

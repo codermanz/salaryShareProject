@@ -83,14 +83,14 @@ class User_Input(db.Model):
                                             {})
     
         #Company
+    companyName = db.Column('USER_COMPANY_NAME', db.String(60), nullable=False)
     companyCountry = db.Column('USER_COMPANY_COUNTRY', db.String(50), nullable=False)
     companyState = db.Column('USER_COMPANY_STATE', db.String(50), nullable=False)
-    companyName = db.Column('USER_COMPANY_NAME', db.String(60), nullable=False)
-    __table_args__ = (ForeignKeyConstraint([companyCountry, companyState, companyName], 
-                                            ['COMPANY.COMPANY_NAME', 'COMPANY.COMPANY_STATE', 'COMPANY.COMPANY_NAME']),
+    __table_args__ = (ForeignKeyConstraint([companyName, companyCountry, companyState] , 
+                                            ['COMPANY.COMPANY_NAME', 'COMPANY.COMPANY_COUNTRY', 'COMPANY.COMPANY_STATE']),
                                             {})
         #Job
-    jobID = db.Column('USER_JOB_ID', db.Integer, db.ForeignKey('JOB.JOB_ID'), nullable=False)
+    jobID = db.Column('USER_JOB_ID', db.Integer, ForeignKey('JOB.JOB_ID'), nullable=False)
 
     # Unique constraint on columns (see logical design)
     __table_args__ = (UniqueConstraint(yearsWorking, yearsAtCompany, salary, negotiated,
@@ -107,7 +107,7 @@ class User_Input(db.Model):
 class User_Entry(db.Model):
     __tablename__ = 'USER_ENTRY'
     entryID = db.Column('ENTRY_ID', db.Integer, Identity(1, cycle=True),  primary_key=True)
-    userInputID = db.Column('USER_INPUT_ID', db.Integer, db.ForeignKey('USER_INPUT.INPUT_ID'), nullable = False)
+    userInputID = db.Column('USER_INPUT_ID', db.Integer, ForeignKey('USER_INPUT.INPUT_ID'), nullable = False)
 
     def __repr__(self):
         return f"User_Entry('{self.entryID}', '{self.userInputID}')"

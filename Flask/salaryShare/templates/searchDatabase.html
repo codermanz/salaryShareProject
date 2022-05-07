@@ -92,7 +92,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-1 form-group">
-                                    {{ jobQueryForm.submit(class="btn btn-primary") }}
+                                    {{ jobQueryForm.submit1(class="btn btn-primary") }}
                                 </div>
                             </form>
                             <table class="table table-bordered table-striped table-hover">
@@ -171,31 +171,31 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    {% if companyQueryForm.country.errors %}
-                                        {{ companyQueryForm.country(class="form-control form-control-lg is-invalid")}}
+                                    {% if companyQueryForm.companyCountry.errors %}
+                                        {{ companyQueryForm.companyCountry(class="form-control form-control-lg is-invalid")}}
                                         <div class="invalid-feedback">
-                                            {% for error in companyQueryForm.country.errors %}
+                                            {% for error in companyQueryForm.companyCountry.errors %}
                                             <span>{{ error }}</span>
                                             {% endfor %}
                                         </div>
                                     {% else %}
-                                        {{ companyQueryForm.country(class="form-control", placeholder="Company Country", style="margin-bottom:10px;") }}
+                                        {{ companyQueryForm.companyCountry(class="form-control", placeholder="Company Country", style="margin-bottom:10px;") }}
                                     {% endif %}
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    {% if companyQueryForm.state.errors %}
-                                        {{ companyQueryForm.state(class="form-control form-control-lg is-invalid")}}
+                                    {% if companyQueryForm.companyState.errors %}
+                                        {{ companyQueryForm.companyState(class="form-control form-control-lg is-invalid")}}
                                         <div class="invalid-feedback">
                                             {% for error in companyQueryForm.state.errors %}
                                                 <span>{{ error }}</span>
                                             {% endfor %}
                                         </div>
                                     {% else %}
-                                        {{ companyQueryForm.state(class="form-control", placeholder="Company State", style="margin-bottom:10px;") }}
+                                        {{ companyQueryForm.companyState(class="form-control", placeholder="Company State", style="margin-bottom:10px;") }}
                                     {% endif %}
                                 </div>
                                 <div class="col-1">
-                                    {{ companyQueryForm.submit(class="btn btn-primary", style="margin-bottom:10px;") }}
+                                    {{ companyQueryForm.submit2(class="btn btn-primary", style="margin-bottom:10px;") }}
                                 </div>
                             </form>
                             <table class="table table-bordered table-striped table-hover">
@@ -272,7 +272,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-1 form-group">
-                                {{ fieldQueryForm.submit(class="btn btn-primary") }}
+                                {{ fieldQueryForm.submit3(class="btn btn-primary") }}
                             </div>
                         </form>
                         <table class="table table-bordered table-striped table-hover">
@@ -358,7 +358,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="col-1 form-group">
-                                    {{ locationQueryForm.submit(class="btn btn-primary") }}
+                                    {{ locationQueryForm.submit4(class="btn btn-primary") }}
                                 </div>
                             </form>
                             <table class="table table-bordered table-striped table-hover">
