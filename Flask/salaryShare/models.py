@@ -1,21 +1,16 @@
 from salaryShare import db
-#from sqlalchemy import ForeignKeyConstraint, UniqueConstraint
+from sqlalchemy import ForeignKeyConstraint, UniqueConstraint, ForeignKey, Identity
 
 # Currently using __tablename__ to reference an already created DB. 
-
-# To create a 'pure model', remove __tablename__ line from all models
-# then remove name of attribute in already created table from 
-# db.Column() function call. Then uncomment Relationships for each table
-# For tables with __table_args__, uncomment those as well
 
 class Field(db.Model):
 
     __tablename__ = 'FIELD'
     name = db.Column('NAME', db.String(50), primary_key=True)
 
-    #Relationships
-    #companies = db.relationship('Company', backref='companyField', lazy=True)
-    #jobs = db.relationship('Job', backref='jobfield', lazy=True)
+    # Relationships
+    companies = db.relationship('Company', backref='companyField', lazy=True)
+    jobs = db.relationship('Job', backref='jobField', lazy=True)
 
     def __repr__(self):
         return f"Field('{self.name}')"
@@ -27,8 +22,8 @@ class Location(db.Model):
     state = db.Column('STATE', db.String(50), primary_key=True)
 
     #Relationships
-    #companies = db.relationship('Company', backref='companyLocation', lazy=True)
-    # users = db.relationship('User_Input', backref='userLocation', lazy=True)
+    companies = db.relationship('Company', backref='companyLocation', lazy=True)
+    users = db.relationship('User_Input', backref='userLocation', lazy=True)
 
     def __repr__(self):
         return f"Location('{self.country}', '{self.state}')"
@@ -41,20 +36,20 @@ class Company(db.Model):
     #Foreign Keys
     country = db.Column('COMPANY_COUNTRY', db.String(50), primary_key=True)
     state = db.Column('COMPANY_STATE', db.String(50), primary_key=True)
-    # __table_args__ = (ForeignKeyConstraint([country, state], 
-    #                                         [Location.country, Location.state]), 
-    #                                         {})
-    field = db.Column('COMPANY_FIELD', db.String(50), db.ForeignKey('FIELD.NAME'), nullable=False)
+    __table_args__ = (ForeignKeyConstraint([country, state], 
+                                            ['LOCATION.COUNTRY', 'LOCATION.STATE']), 
+                                            {})
+    field = db.Column('COMPANY_FIELD', db.String(50), ForeignKey('FIELD.NAME'), nullable=False)
 
     #Relationships
-    # userInputs = db.relationship('User_Input', backref='company', lazy=True)
+    userInputs = db.relationship('User_Input', backref='company', lazy=True)
 
     def __repr__(self):
         return f"Company('{self.name}', '{self.country}', '{self.state}', '{self.standing}', '{self.field}')"
 
 class Job(db.Model):
     __tablename__ = 'JOB'
-    jobID = db.Column('JOB_ID', db.Integer, primary_key=True)
+    jobID = db.Column('JOB_ID', db.Integer, Identity(1, cycle=True), primary_key=True)
 
     name = db.Column('JOB_NAME', db.String(50), nullable=False)
     level = db.Column('JOB_LEVEL', db.String(50), nullable=True)
@@ -63,17 +58,17 @@ class Job(db.Model):
     locationType = db.Column('JOB_LOCATION_TYPE', db.String(50), nullable=True)
 
     #Foreign Keys
-    field = db.Column('JOB_FIELD', db.String(50), db.ForeignKey('FIELD.NAME'), nullable=False)
+    field = db.Column('JOB_FIELD', db.String(50), ForeignKey('FIELD.NAME'), nullable=False)
 
     #Relationships
-    # userInputs = db.relationship('User_Input', backref='userJob', lazy=True)
+    userInputs = db.relationship('User_Input', backref='userJob', lazy=True)
 
     def __repr__(self):
         return f"Job('{self.name}', '{self.level}', '{self.commitment}', '{self.shiftTime}', '{self.locationType}', , '{self.field}')"
 
 class User_Input(db.Model):
     __tablename__ = 'USER_INPUT'
-    inputID = db.Column('INPUT_ID', db.Integer, primary_key=True)
+    inputID = db.Column('INPUT_ID', db.Integer, Identity(1, cycle=True), primary_key=True)
     yearsWorking = db.Column('YEARS_WORKING', db.Integer, nullable=False)
     yearsAtCompany = db.Column('YEARS_AT_COMPANY', db.Integer, nullable=False)
     salary = db.Column('SALARY', db.Integer, nullable=False)
@@ -83,36 +78,36 @@ class User_Input(db.Model):
         #User Location
     country = db.Column('USER_COUNTRY', db.String(50))
     state = db.Column('USER_STATE', db.String(50))
-    # __table_args__ = (ForeignKeyConstraint([country, state], 
-    #                                         [Location.country, Location.state]),
-    #                                         {})
+    __table_args__ = (ForeignKeyConstraint([country, state], 
+                                            ['LOCATION.COUNTRY', 'LOCATION.STATE']),
+                                            {})
+    
         #Company
     companyCountry = db.Column('USER_COMPANY_COUNTRY', db.String(50), nullable=False)
     companyState = db.Column('USER_COMPANY_STATE', db.String(50), nullable=False)
     companyName = db.Column('USER_COMPANY_NAME', db.String(60), nullable=False)
-    # __table_args__ = (ForeignKeyConstraint([companyCountry, companyState, companyName], 
-    #                                         [Company.country, Company.state, Company.name]),
-    #                                         {})
+    __table_args__ = (ForeignKeyConstraint([companyCountry, companyState, companyName], 
+                                            ['COMPANY.COMPANY_NAME', 'COMPANY.COMPANY_STATE', 'COMPANY.COMPANY_NAME']),
+                                            {})
         #Job
-    jobID = db.Column('USER_JOB_ID', db.Integer, db.ForeignKey('JOB.jobID'), nullable=False)
+    jobID = db.Column('USER_JOB_ID', db.Integer, db.ForeignKey('JOB.JOB_ID'), nullable=False)
 
-    #Unique constraint on columns (see logical design)
-    # __table_args__ = (UniqueConstraint(yearsWorking, yearsAtCompany, salary, negotiated,
-    #                                     jobID, country, state, companyName, companyCountry,
-    #                                     companyState), 
-    #                                     {})
+    # Unique constraint on columns (see logical design)
+    __table_args__ = (UniqueConstraint(yearsWorking, yearsAtCompany, salary, negotiated,
+                                        jobID, country, state, companyName, companyCountry,
+                                        companyState), 
+                                        {})
 
     #Relationships
-    # userEntries = db.relationship('User_Entry', backref='userInput', lazy=True)
+    userEntries = db.relationship('User_Entry', backref='userInput', lazy=True)
 
     def __repr__(self):
         return f"User_Input('{self.inputID}', '{self.yearsAtCompany}', '{self.yearsAtCompany}', '{self.salary}', '{self.negotiated}', '{self.country}', '{self.state}', '{self.companyName}', '{self.companyCountry}', '{self.companyState}', '{self.jobID}')"
 
 class User_Entry(db.Model):
     __tablename__ = 'USER_ENTRY'
-    entryID = db.Column('ENTRY_ID', db.Integer, primary_key=True)
-    userInputID = db.Column('USER_INPUT_ID', db.Integer, nullable = False)
-    # userInputID = db.Column(db.Integer, db.ForeignKey('user__input.inputID'), nullable=False)
+    entryID = db.Column('ENTRY_ID', db.Integer, Identity(1, cycle=True),  primary_key=True)
+    userInputID = db.Column('USER_INPUT_ID', db.Integer, db.ForeignKey('USER_INPUT.INPUT_ID'), nullable = False)
 
     def __repr__(self):
         return f"User_Entry('{self.entryID}', '{self.userInputID}')"

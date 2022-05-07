@@ -1,8 +1,8 @@
-from logging import PlaceHolder
 from flask_wtf import FlaskForm
-import salaryShare
-from wtforms import StringField, SubmitField, IntegerField, SelectField, TextAreaField
-from wtforms.validators import Length, DataRequired, EqualTo, ValidationError
+from salaryShare import db
+from salaryShare.models import Field, Location
+from wtforms import StringField, SubmitField, IntegerField, SelectField
+from wtforms.validators import Length, DataRequired
 
 #-----------------------------------------Upload Data Page
 
@@ -15,7 +15,13 @@ class InsertCompanyForm(FlaskForm):
     field = StringField('Company Field*', validators=[DataRequired(), Length(max=50)])
     submit = SubmitField('Upload Company Info!')
 
-    #def validate_field(self, field):
+    def validate_field(self, field):
+        fieldQuery = Field.query.filter_by(name=field.data).first()
+        if (not fieldQuery):
+            fieldQuery = Field(name=field.data)
+            db.session.add(fieldQuery)
+            db.session.commit()
+
 
 class ReportUserInformationForm(FlaskForm):
     jobPosition = StringField('Job Position*', validators=[DataRequired(), Length(max=50)])
@@ -30,7 +36,7 @@ class ReportUserInformationForm(FlaskForm):
     shiftTime = SelectField('Shift Time', choices=SHIFT_TIME_CHOICES)
     inputCountry = StringField('What Country do you work in?*', validators=[DataRequired(), Length(max=50)])
     inputState = StringField('What State do you work in?*', validators=[DataRequired(), Length(max=50)])
-    LOCATION_TYPE_CHOICES = [(''), ('In-person'), ('Remote'), ('Hybrid')]
+    LOCATION_TYPE_CHOICES = [(''), ('On-site'), ('Remote'), ('Hybrid')]
     locationType = SelectField('Location Type', choices=LOCATION_TYPE_CHOICES)
     yearsWorking = IntegerField('Years Working*', validators=[DataRequired()])
     yearsAtCompany = IntegerField('Years At Company*', validators=[DataRequired()])
@@ -38,6 +44,13 @@ class ReportUserInformationForm(FlaskForm):
     companyCountry = StringField('Employer\'s HQ Country*', validators=[DataRequired(), Length(max=50)])
     companyState = StringField('Employer\'s HQ State*', validators=[DataRequired(), Length(max=50)])
     submit = SubmitField('Report your info!')
+
+    def validate_jobField(self, jobField):
+        fieldQuery = Field.query.filter_by(name=jobField.data).first()
+        if (not fieldQuery):
+            fieldQuery = Field(name=jobField.data)
+            db.session.add(fieldQuery)
+            db.session.commit()
 
 #-----------------------------------------Search Database Page
 

@@ -32,14 +32,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <th scope="row">1</th>
-                                    <td>Apple</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>Software Engineer</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>$500,000</td>                                    
+                                    {% if generalQuery is defined and generalQuery|length > 0 %}
+                                        {% for entry in generalQuery %}
+                                            <tr>
+                                                <th scope="row">{{ entry.entryID }}</th>
+                                                <td>{{ entry.companyName }}</td>
+                                                <td>{{ entry.companyCountry }}</td>
+                                                <td>{{ entry.companyState }}</td>
+                                                <td>{{ entry.jobName }}</td>
+                                                <td>{{ entry.userCountry }}</td>
+                                                <td>{{ entry.userState }}</td>
+                                                <td>${{ entry.salary }}</td>
+                                            </tr>
+                                        {% endfor%}
+                                    {% else %}
+                                        <th scope="row">...</th>
+                                        <th>...</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    {% endif %}                               
                                 </tbody>
                             </table>
                         </div>
@@ -94,14 +109,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>Software Engineer</td>
-                                    <td>Junior</td>
-                                    <td>Apple</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>$500,000</td>                                    
+                                    {% if jobBasedQuery is defined and jobBasedQuery|length > 0 %}
+                                        {% for entry in jobBasedQuery %}
+                                            <tr>
+                                                <th scope="row">{{ entry.jobName }}</th>
+                                                <td>{{ entry.jobLevel }}</td>
+                                                <td>{{ entry.companyName }}</td>
+                                                <td>{{ entry.companyCountry }}</td>
+                                                <td>{{ entry.companyState }}</td>
+                                                <td>{{ entry.userCountry }}</td>
+                                                <td>{{ entry.userState }}</td>
+                                                <td>${{ entry.salary }}</td>
+                                            </tr>
+                                        {% endfor%}
+                                    {% else %}
+                                        <th scope="row">...</th>
+                                        <th>...</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    {% endif %}                                    
                                 </tbody>
                             </table>
                         </div>
@@ -181,13 +211,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>Apple</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>Software Engineer</td>
-                                    <td>$500,000</td>                                    
+                                    {% if companyBasedQuery is defined and companyBasedQuery|length > 0 %}
+                                        {% for entry in companyBasedQuery %}
+                                            <tr>
+                                                <th scope="row">{{ entry.companyName }}</th>
+                                                <th>{{ entry.companyCountry }}</th>
+                                                <th>{{ entry.companyState }}</th>
+                                                <td>{{ entry.userCountry }}</td>
+                                                <td>{{ entry.userState }}</td>
+                                                <td>{{ entry.jobName }}</td>
+                                                <td>${{ entry.salary }}</td>
+                                            </tr>
+                                        {% endfor%}
+                                    {% else %}
+                                        <th scope="row">...</th>
+                                        <th>...</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td> 
+                                    {% endif %}                                  
                                 </tbody>
                             </table>
                         </div>
@@ -243,12 +287,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <td>Technology</td>
-                                <td>Apple</td>
-                                <td>United States</td>
-                                <td>California</td>
-                                <td>Software Engineer</td>
-                                <td>$500,000</td>                                    
+                                {% if fieldBasedQuery is defined and fieldBasedQuery|length > 0 %}
+                                    {% for entry in fieldBasedQuery %}
+                                        <tr>
+                                            <th scope="row">{{ entry.fieldName }}</th>
+                                            <td>{{ entry.companyName }}</td>
+                                            <td>{{ entry.companyCountry }}</td>
+                                            <td>{{ entry.companyState }}</td>
+                                            <td>{{ entry.jobName }}</td>
+                                            <td>${{ entry.salary }}</td>
+                                        </tr>
+                                    {% endfor%}
+                                {% else %}
+                                    <th scope="row">...</th>
+                                    <th>...</th>
+                                    <td>...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                {% endif %}                                  
                             </tbody>
                         </table>
                         </div>
@@ -317,13 +374,27 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>Software Engineer</td>
-                                    <td>Apple</td>
-                                    <td>United States</td>
-                                    <td>California</td>
-                                    <td>$500,000</td>                                    
+                                    {% if locationBasedQuery is defined and locationBasedQuery|length > 0 %}
+                                        {% for entry in locationBasedQuery %}
+                                        <tr>
+                                            <th scope="row">{{ entry.userCountry }}</th>
+                                            <th>{{ entry.userState }}</th>
+                                            <td>{{ entry.jobName }}</td>
+                                            <td>{{ entry.companyName }}</td>
+                                            <td>{{ entry.companyCountry }}</td>
+                                            <td>{{ entry.companyState }}</td>
+                                            <td>${{ entry.salary }}</td>
+                                        </tr>
+                                        {% endfor%}
+                                    {% else %}
+                                        <th scope="row">...</th>
+                                        <th>...</th>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+                                    {% endif %}                                 
                                 </tbody>
                             </table>
                         </div>
